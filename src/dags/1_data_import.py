@@ -61,7 +61,7 @@ def data_import():
         @task
         def list_keys(s3_key: str):
             s3_hook = S3Hook(s3_conn_id)
-            prefix = re.split(r"[\[\*\?]", s3_key, 1)[0]
+            prefix = re.split(r"[\[\*\?\_]", s3_key, 1)[0]
             metadata = s3_hook.get_file_metadata(prefix)
             keys = sorted([d['Key'] for d in metadata], key=len)
             offset = keys.index(s3_key) if s3_key in keys else 0
